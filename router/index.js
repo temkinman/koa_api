@@ -3,6 +3,8 @@ const router = new Router();
 
 const Task = require('../api/task');
 
+
+//отправляем post запрос на сервер
 router.post('/addTask', async (context) => { //context это то что нам придет от сервера
     // console.log('context', context)
     // console.log('context.requestbody', context.request.body)

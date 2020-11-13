@@ -10,6 +10,8 @@ const router = require('../router');
     next(); // без этой записи след. запрос не отработает
 })*/
 
+
+// важно сперва app.use(koaBody()); а потом роуты иначе правильно работать не будет
 app.use(koaBody());
 app.use(router.routes());
 app.use(router.allowedMethods());
