@@ -77,25 +77,48 @@ router.post("/addTask", async (context) => {
 });
 
 router.get("/", async (ctx) => {
-  ctx.body = state;
+  try {
+    ctx.body = state;
+  } catch (err) {
+    ctx.status = err.status || 500;
+    ctx.body = err.message;
+    ctx.app.emit("error", err, ctx);
+  }
 });
 
 router.get("/:id", async (ctx) => {
-  ctx.body = state.users[ctx.params.id];
+  try {
+    ctx.body = state.users[ctx.params.id];
+  } catch (err) {
+    ctx.status = err.status || 500;
+    ctx.body = err.message;
+    ctx.app.emit("error", err, ctx);
+  }
 });
 
-router.post("", async (ctx) => {
-  const chatId = ctx.request.body.id;
-  const chatTitle = ctx.request.body.title;
-  const newChat = {
-    id: chatId,
-    title: chatTitle,
-    messages: [],
-    draft: "",
-  };
+router.post("/", async (ctx) => {
+  const type = ctx.request.body.type;
 
-  state = { ...state, chats: { ...state.chats, [chatId]: newChat } };
-  ctx.body = state;
+  switch (type) {
+    case "ADD_CHAT":
+      const { chatId, chatTitle } = ctx.request.body;
+
+      const newChat = {
+        id: chatId,
+        title: chatTitle,
+        messages: [],
+        draft: "",
+      };
+
+      state = { ...state, chats: { ...state.chats, [chatId]: newChat } };
+      ctx.body = state;
+      break;
+
+    case "DELETE_CHAT":
+      const chatIdDelete = ctx.request.body.id;
+      delete state.chats[chatIdDelete];
+      ctx.body = state;
+  }
 });
 
 module.exports = router;
