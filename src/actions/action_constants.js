@@ -1,0 +1,6 @@
+export const CHANGE_FIRST_NAME = "CHANGE_FIRST_NAME";
+export const CHANGE_LAST_NAME = "CHANGE_LAST_NAME";
+export const CHANGE_COMPANY = "CHANGE_COMPANY";
+export const CHANGE_SALLARY = "CHANGE_SALLARY";
+export const UP_SALLARY = "UP_SALLARY";
+export const LOW_SALLARY = "LOW_SALLARY";
