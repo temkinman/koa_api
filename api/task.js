@@ -19,3 +19,9 @@ exports.addTask = ({id, description}) =>
       reject(err);
     }
   });
+
+  exports.addChannel = ({title}) => {
+    // new Promise
+  } 
+
+  
